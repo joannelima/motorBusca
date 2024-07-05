@@ -14,8 +14,8 @@ import java.util.LinkedHashMap;
 
 public class SearchEngine {
     private Map<String, Map<Integer, Integer>> wordPageCountMap; // Hash invertido: palavra -> (página -> contagem)
-    private LinkedHashMap<String, List<Map.Entry<Integer, Integer>>> cache;
-    private final int CACHE_SIZE = 5; // Tamanho máximo do cache
+    private LinkedHashMap<String, List<Map.Entry<Integer, Integer>>> cache; //lista encadeada
+    private final int CACHE_SIZE = 5; // cache
 
     public SearchEngine(String xmlFilePath) {
         wordPageCountMap = new HashMap<>();
@@ -178,7 +178,7 @@ public class SearchEngine {
             List<Map.Entry<Integer, Integer>> results = engine.search(queries);
 
             // Mostra os 5 primeiros resultados da pesquisa
-            if (results.size() != 0) {
+            if (!results.isEmpty()) {
                 System.out.println("Top 5 páginas para '" + String.join(" ", queries) + "':");
                 for (int i = 0; i < Math.min(5, results.size()); i++) {
                     Map.Entry<Integer, Integer> entry = results.get(i);
